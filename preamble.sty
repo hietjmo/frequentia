@@ -1,0 +1,385 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+% \usepackage[utf8]{inputenc} % own
+% Load packages
+\usepackage{graphicx} % gp
+\usepackage{color} % gp
+\usepackage{import} 
+\usepackage{xcolor} 
+\usepackage{adjustbox}
+\usepackage{tkz-euclide}
+\usepackage{tikz}
+\usepackage{pgfplots}
+% \usepackage{positioning}
+\usepackage[labelfont={bf,small},labelsep=period,textfont=small,format=hang,justification=raggedright,margin=0.5cm]{caption} % image captions
+\usepackage{float}
+\usepackage{booktabs} % 2018-10-23
+\usepackage{longtable} % longtable environment 
+% \usepackage{preamble-extra} 
+\usepackage{fancyvrb} % Verbatim environment 
+\usepackage{afterpage} % 2018-10-05
+\usepackage{chngcntr} % 2019-01-08 
+\usepackage{shadowtext} % shadowtext 
+\counterwithout{figure}{chapter} % 2019-01-08 
+\floatstyle{plaintop}
+\restylefloat{table}
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+\usepackage{amssymb,amsmath}
+% \usepackage{unicode-math} % own
+% \usepackage{cmbright} % own
+%\renewcommand{\familydefault}{\sfdefault} % fedora
+%\usepackage{helvet} %fedora
+%\usepackage{sansmathfonts} % own
+% \usepackage{concmath} % 2018-10-05
+% \usepackage[T1]{fontenc} % 2018-10-05
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+$if(euro)$
+  \newcommand{\euro}{€}
+$endif$
+$if(mainfont)$
+    \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+$endif$
+$if(CJKmainfont)$
+    \usepackage{xeCJK}
+    \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
+$endif$
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+\usepackage{hyperref}
+$if(colorlinks)$
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+$endif$
+\hypersetup{unicode=true,
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+            pdfauthor={$author-meta$},
+$endif$
+$if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$; $endfor$},
+$endif$
+$if(colorlinks)$
+            colorlinks=true,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+$else$
+            pdfborder={0 0 0},
+$endif$
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+\usepackage{fancyhdr}
+  \fancyhf{}
+  \fancyhead[LE]{}
+  \fancyhead[RO]{}
+\fancyfoot[C]{\thepage}
+
+\fancypagestyle{plain}{%
+  % \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% \pagestyle{fancy}
+\pagestyle{plain}
+
+$if(lang)$ % 2018-10-26
+\usepackage[$lang$]{babel}
+$else$
+\usepackage[english]{babel}
+$endif$
+
+% \usepackage[english]{babel}
+\include{tavutus}
+
+% 2018-11-08 start of tt hyphen 
+\makeatletter 
+\DeclareRobustCommand\origttfamily
+        {\not@math@alphabet\ttfamily\mathtt
+         \fontfamily\ttdefault\selectfont\hyphenchar\font=-1}
+\DeclareTextFontCommand{\texttorig}{\origttfamily}
+\DeclareRobustCommand\ttfamily
+        {\not@math@alphabet\ttfamily\mathtt
+         \fontfamily\ttdefault\selectfont\hyphenchar\font=`\-}
+\makeatother 
+% 2018-11-08 end of tt hyphen
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage$if(biblio-style)$[style=$biblio-style$]$endif${biblatex}
+$if(biblatexoptions)$\ExecuteBibliographyOptions{$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$}$endif$
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(tables)$
+\usepackage{longtable,booktabs}
+$endif$
+$if(graphics)$
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+$if(indent)$
+$else$
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+$endif$
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+$if(numbersections)$
+\setcounter{secnumdepth}{5}
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(subparagraph)$
+$else$
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+$endif$
+$if(dir)$
+\ifxetex
+  % load bidi as late as possible as it modifies e.g. graphicx
+  $if(latex-dir-rtl)$
+  \usepackage[RTLdocument]{bidi}
+  $else$
+  \usepackage{bidi}
+  $endif$
+\fi
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \TeXXeTstate=1
+  \newcommand{\RL}[1]{\beginR #1\endR}
+  \newcommand{\LR}[1]{\beginL #1\endL}
+  \newenvironment{RTL}{\beginR}{\endR}
+  \newenvironment{LTR}{\beginL}{\endL}
+\fi
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\providecommand{\subtitle}[1]{}
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+\date{$date$}
+
+$if(title-color)$
+% \definecolor{titlecolor}{rgb}{0.90,0.47,0.34}
+\definecolor{titlecolor}{HTML}{$title-color$}
+$else$
+\definecolor{titlecolor}{HTML}{000000}
+$endif$
+\shadowrgb{0.71,0.69,0.68}
+
+
+
+$if(cover-color)$
+\definecolor{bcolor}{HTML}{$cover-color$}
+$else$
+\definecolor{bcolor}{HTML}{ffffff}
+$endif$
+\newcommand{\BB}[1]{\textsf{\textbf{#1}}}
+\newcommand{\green}[1]{\wrapcolorbox[white]{\textsf{\textbf{\,#1\,}}}}
+\newcommand{\greenX}[1]{\colorbox{white}{\textsf{\textbf{\,#1\,}}}}
+% \parbox[pos][height][contentpos]{width}{text} 
+\newcommand{\BigWords}[1]{%
+        \adjustboxset{min width=\linewidth, margin*=0.2em 1ex 0ex 0ex}%
+        \foreach \i [count=\ni] in {#1}{%
+                \ifnum\ni=1    
+                        \adjustbox{}{\i}%
+                \else
+                        \\\adjustbox{}{\i}%
+                \fi
+        }\vspace{-1ex}%
+}
+
+
+\begin{document}
+$if(title)$
+% \maketitle
+\begin{titlepage}
+ \begin{tikzpicture}[remember picture,overlay]
+    \fill[bcolor] (current page.south west) 
+     rectangle (current page.north east);
+\end{tikzpicture}   
+
+
+$if(title-background-image)$
+\begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=south west,inner sep=0,text opacity=.99]
+  (image) at (current page.south west)
+  {\includegraphics[width=\paperwidth,height=\paperheight]{$title-background-image$}};
+\end{tikzpicture}
+$endif$
+
+$if(title-background-image2)$
+\begin{tikzpicture}[remember picture,overlay]
+\node (background) at  (0.5\textwidth-1cm,-0.5\textheight+0.75cm) {\includegraphics[height=\paperheight+3cm,width=\paperwidth+1.1cm]{$title-background-image$}};
+  \end{tikzpicture}   
+$endif$
+
+  \color{titlecolor}
+  \begin{center}
+  \vspace*{0.1cm}
+   \shadowtext{\BigWords{\BB{$title$}}}
+
+$if(subtitle)$
+  \vspace{0.1cm}
+  \shadowtext{\BigWords{\BB{$subtitle$}}}
+$endif$
+$if(author)$
+  \shadowoffset{0.5pt}
+  \vspace{0.1cm}
+  \shadowtext{\Large \BB{\hfill{} $author$: $date$ \hfill{}}}
+$endif$
+
+\end{center}
+\end{titlepage}
+%\pagecolor{yellow!20!orange!20}  % 2018-10-05
+$endif$
+
+
+
+\setcounter{page}{1}
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+}
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+$if(lof)$
+\listoffigures
+$endif$
+$body$
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}

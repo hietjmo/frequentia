@@ -1,0 +1,33 @@
+mkdir csv
+mkdir figures
+
+python count-wd-ltr.py # lege file-list.txt => calcula a csv's
+python count-lit-total.py # combine results (lit) in csv's to lit-total.csv
+python count-par-total.py # combine results (par) in csv's to par-total.csv
+
+python plot-csv.py # plot letter-frequency bar graph
+python lit-partes-csv.py # print latex table for letters
+python list-fontes.py # list fontes
+
+python chap-tres-parolas.py # count in toto, unic
+python plot-longitudes.py 1 2 4 # plot 2 longitudes bar graphs + cum
+python table-longitudes.py 1 2 3 # print 2 latex tables for longitudes + cum
+
+python lista-de-parolas.py
+
+./make-book
+
+-------
+
+rm -rf png
+
+mkdir -p png
+pdftoppm -png -r 200 frequentia-2020-10-19.pdf png/espeak-source-p
+
+ls png > input2.txt
+
+python read-input.py > input.txt
+
+ffmpeg -y -f concat -i input.txt -crf 25 -vf scale=-2:960  output.mp4
+
+

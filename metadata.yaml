@@ -1,0 +1,28 @@
+---
+documentclass: report
+papersize: a5
+geometry: left=1cm, right=1cm, top=1.3cm, bottom=2cm
+# mainfont: TeX Gyre Pagella
+# mainfont: Latin Modern Roman
+# mainfontoptions: SmallCapsFont = GFS Didot
+fontsize: 11pt
+# font-family: sans-serif
+# fontfamilyoptions: sfdefault
+# mainfont: Latin Modern Sans
+mainfont: TeX Gyre Heros
+mathfont: TeX Gyre Heros
+# sansfont: TeX Gyre Heros
+monofont: Latin Modern Mono
+monofontoptions: Scale=0.96
+#table-of-contents: true
+#toc-depth: 1
+title-background-image: figures/sand-6.jpg
+title-color: f9c8a7
+title: Frequentia
+subtitle: de litteras e parolas
+lang: interlingua
+author: Jarmo Hietala
+top-level-division: chapter
+---
+
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cat md/prime-pagina.md md/lit-partes.md md/fontes.md md/chap-tres-un.md md/par-longitudes.md md/chap-tres-parolas.md md/chap-tres-duo.md md/par-longitudes-unic.md md/par-cumulgraph.md md/par-cumultable.md md/par-cumulchap.md md/lista-de-parolas.md > frequentia.md
+
+./pandoc-script-one-md frequentia
+
+# 827x1174 in 120 ppi
+# Just use
+# :!chmod +x %
+

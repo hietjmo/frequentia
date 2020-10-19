@@ -1,0 +1,25 @@
+#!/bin/bash
+# date "+%-d.%-m.%Y" > current.date
+
+date "+%Y-%m-%d" > current.date
+/home/jhii/sorsat/git/binary/bmt-now > bmt.txt
+
+pandoc "$1".md metadata.yaml \
+  --template=preamble.sty \
+  -f markdown+implicit_figures+link_attributes+latex_macros+tex_math_dollars+yaml_metadata_block+grid_tables  \
+  -V date="`date "+%Y-%m-%d"`" \
+  --quiet \
+  --pdf-engine=xelatex \
+  -o $1-`date "+%Y-%m-%d"`.pdf
+
+if [ $? -eq 0 ]; then
+    echo "PDF valmis."
+else
+    echo ERROR
+fi
+
+
+# Just use
+
+# :!chmod +x %
+
