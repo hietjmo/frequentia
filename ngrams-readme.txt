@@ -1,3 +1,19 @@
+Pacchettos de https://github.com/hietjmo/frequentia
+
+23 920 640 ngrams-1-to-5.tar.gz
+ 8 396 800 gram-6-total.csv.tar.gz
+
+Le pacchetto ngrams-1-to-5.tar.gz ha le 5 files:
+
+   614 400 gram-1-total.csv
+ 7 790 592 gram-2-total.csv
+22 745 088 gram-3-total.csv
+36 646 912 gram-4-total.csv
+47 628 288 gram-5-total.csv
+
+Le pacchetto gram-6-total.csv.tar.gz ha le file:
+
+57 462 784 gram-6-total.csv
 
 # head ngrams/gram-*-total.csv 
 ==> ngrams/gram-1-total.csv <==
