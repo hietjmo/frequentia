@@ -50,6 +50,11 @@ def in_toto ():
 
 litordine = " ".join (chunks ("".join (ltrs),5))
 
+ordinefile = "litteras-in-ordine.txt"
+with open (ordinefile, 'w') as g:
+  g.write ("".join (ltrs))
+print ("Scribeva", "".join (ltrs), "to:", ordinefile)
+
 columns = split (lit_rows,6)
 with open (tex_file, 'w') as f:
   f.write (in_toto ())

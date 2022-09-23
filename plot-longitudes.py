@@ -10,14 +10,23 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 import scipy.interpolate as spy
 import numpy as np
 
+"""
+To get it to work, I had to combine the two current top answers. Here's what worked for me:
+
+$ sudo apt install msttcorefonts -qq
+$ rm ~/.cache/matplotlib -rf
+"""
+
 # font = "Liberation Sans"  # alternative to arial
-# font = "NimbusSansL"
-font = 'tex gyre heros'  # an open type font
+font = "Arial"
+# font = 'tex gyre heros'  # an open type font
 
 # font = "Latin Modern Sans"
-mpl.rcParams['font.sans-serif'] = font
-mpl.rc('mathtext', fontset='custom', it=font + ':italic')
-mpl.rc('font', size=9)  # change font size from default 10
+plt.rcParams["font.family"] = "Arial"
+plt.rcParams['font.size'] = 9
+# mpl.rcParams['font.sans-serif'] = font
+# mpl.rc('mathtext', fontset='custom', it=font + ':italic')
+# mpl.rc('font', size=9)  # change font size from default 10
 
 # csvfile = "freq-collection-1.csv"
 
@@ -77,6 +86,10 @@ ratiosP = {str (k):n / totalP for (k,n) in longor_s.items()}
 totalU = sum (unic.values())
 ratiosU = {str (k):n / totalU for (k,n) in unic_s.items()}
 
+def pltshow ():
+  if "i" in sys.argv: 
+    plt.show()
+
 # Figure 1:
 
 def figure1 ():
@@ -102,7 +115,7 @@ def figure1 ():
   f.savefig (pdffile1, bbox_inches='tight')
   print ("Scribeva:", pdffile1)
 
-  plt.show ()
+  pltshow ()
 
 # Figure 2:
 def figure2 ():
@@ -127,7 +140,7 @@ def figure2 ():
   plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.2f'))
   f.savefig (pdffile2, bbox_inches='tight')
   print ("Scribeva:", pdffile2)
-  plt.show ()
+  pltshow ()
 
 # Figure 3:
 def figure3 ():
@@ -143,7 +156,7 @@ def figure3 ():
   plt.plot (xs_new, ys_new, 'k')
   f.savefig (pdffile3, bbox_inches='tight')
   print ("Scribeva:", pdffile3)
-  plt.show ()
+  pltshow ()
 
 # Figure 4:
 def figure4 ():
@@ -162,7 +175,7 @@ def figure4 ():
   #axins = inset_axes(ax, 1,1 , loc=2, bbox_to_anchor=(200, 220))
   axins = ax.inset_axes([0.4, 0.0, 0.60, 0.8])
   #axins = inset_axes(ax, 1,1 , loc=2, bbox_to_anchor=(0.35, 0.35))
-  axins.set_xlim(0, 10000) 
+  axins.set_xlim(0, 20000) 
   axins.set_ylim(0.65, 0.95) 
   axins.yaxis.tick_right()
   axins.grid (True)
@@ -170,7 +183,7 @@ def figure4 ():
   axins.plot(xs_new, ys_new, 'k')
   fig.savefig (pdffile3, bbox_inches='tight')
   print ("Scribeva:", pdffile3)
-  plt.show ()
+  pltshow ()
 
 def figure5 ():
   fig, ax = plt.subplots()
@@ -180,7 +193,7 @@ def figure5 ():
   axin2 = ax.inset_axes(
           [5, 7, 2.3, 2.3], transform=ax.transData)
   axin1.plot ()
-  plt.show ()
+  pltshow ()
 
 if "1" in sys.argv: figure1 ()
 if "2" in sys.argv: figure2 ()

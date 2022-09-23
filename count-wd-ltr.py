@@ -24,18 +24,19 @@ def mc (filename):
   cnt = Counter (parolas)
   return cnt.most_common ()
 
-
 def count_frequency (txtfile):
   print ("Legeva:", txtfile)
   with open (txtfile) as f:
     content = f.read()
-
-  ltrs = [c for c in content.lower() if "a" <= c <= "z"]
+  contentlower = content.lower()
+  contentlower = contentlower.replace ("\n"," ")
+  ltrs = [c for c in contentlower if "a" <= c <= "z"]
   lit_cnt = Counter (ltrs)
   lit_mc = lit_cnt.most_common()
   lit_total = sum ([x [1] for x in lit_mc])
   lit_rows = [[k, v] for (k,v) in lit_mc]
   lit_file = csv_file ("lit",txtfile)
+
   with open (lit_file, 'w') as f:
     writer = csv.writer (f,delimiter='\t')
     writer.writerows (lit_rows)
@@ -53,6 +54,20 @@ def count_frequency (txtfile):
     writer.writerows (par_rows)
   print ("Scribeva:", par_file)
 
+  grammas = [a+b for a,b in zip (contentlower,contentlower[1:]) 
+    if "a" <= a <= "z" and "a" <= b <= "z"]
+  gr_cnt = Counter (grammas)
+  gr_mc = gr_cnt.most_common()
+  gr_total = sum ([x [1] for x in gr_mc])
+  gr_rows = [[k, v] for (k,v) in gr_mc]
+  gr_file = csv_file ("gr",txtfile)
+
+  with open (gr_file, 'w') as f:
+    writer = csv.writer (f,delimiter='\t')
+    writer.writerows (gr_rows)
+  print ("Scribeva:", gr_file)
+
+
 def mod_date (filename):
   try:
     modTimesinceEpoc = os.path.getmtime (filename)
@@ -68,11 +83,13 @@ force = len (sys.argv) > 0 and "-f" in sys.argv
 def check_mod (txtfile):
   lit_file = csv_file ("lit",txtfile)
   par_file = csv_file ("par",txtfile)
+  gr_file = csv_file ("gr",txtfile)
 
   txt_mod = mod_date (txtfile)
   lit_mod = mod_date (lit_file)
   par_mod = mod_date (par_file)
-  if lit_mod < txt_mod or par_mod < txt_mod or force: 
+  gr_mod = mod_date (gr_file)
+  if lit_mod < txt_mod or par_mod < txt_mod or gr_mod < txt_mod or force: 
     count_frequency (txtfile)
 
 with open (filelist) as f:

@@ -33,6 +33,7 @@ def split (a, n):
 
 longor = {}
 unic = {}
+monstros = [(0,"")]
 cum = [(0,0)]
 cumsum = 0
 
@@ -55,6 +56,14 @@ with open (par_file) as f:
     else:
       longor [k] = v
       unic [k] = 1
+    if k > monstros[0][0]:
+      monstros.append ((k,row[0]))
+      monstros.sort ()
+      monstros = monstros [-30:]
+
+print ("monstros =")
+for i,j in monstros:
+  print (f"{i:5} {j}")
 
 longor_s = dict (sorted (longor.items ()))
 unic_s = dict (sorted (unic.items ()))

@@ -310,22 +310,25 @@ $if(title-background-image2)$
   \end{tikzpicture}   
 $endif$
 
-  \color{titlecolor}
-  \begin{center}
-  \vspace*{0.1cm}
-   \shadowtext{\BigWords{\BB{$title$}}}
-
-$if(subtitle)$
-  \vspace{0.1cm}
-  \shadowtext{\BigWords{\BB{$subtitle$}}}
-$endif$
-$if(author)$
-  \shadowoffset{0.5pt}
-  \vspace{0.1cm}
-  \shadowtext{\Large \BB{\hfill{} $author$: $date$ \hfill{}}}
-$endif$
-
-\end{center}
+%   \color{titlecolor}
+%   \begin{center}
+%   \vspace*{0.1cm}
+%    \shadowtext{\BigWords{\BB{$title$}}}
+% 
+% $if(subtitle)$
+%   \vspace{0.1cm}
+%   \shadowtext{\BigWords{\BB{$subtitle$}}}
+% $endif$
+% 
+%   \vspace{-0.1cm}
+% 
+% $if(author)$
+%   \shadowoffset{0.5pt}
+%   \vspace{0.1cm}
+%   \shadowtext{\Large \BB{\hfill{} $author$: $date$ \hfill{}}}
+% $endif$
+% 
+% \end{center}
 \end{titlepage}
 %\pagecolor{yellow!20!orange!20}  % 2018-10-05
 $endif$

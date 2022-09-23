@@ -2,7 +2,7 @@ import csv
 import os.path
 import itertools
 
-par_file = "csv/par-total.csv"
+par_file = "csv/par-total-ppm.csv"
 
 par = []
 amount = []
@@ -10,10 +10,10 @@ amount = []
 with open (par_file) as f:
   reader = csv.reader (f,delimiter='\t')
   for row in reader:
-    n = int (row [1])
-    if n >= 5:
+    ppm = int (row [1])
+    if ppm >= 2:
       par.append (row [0])
-      amount.append (n)
+      amount.append (ppm)
 
 total = sum (amount)
 unic = len (par)
@@ -57,7 +57,7 @@ tex_file = "md/lista-de-parolas.md"
 
 outfile = open (tex_file,"w")
 wds = list (enumerate (zip (par,amount)))
-outfile.write (f"\n# Frequentia de parolas\n\n")
+outfile.write (f"\n# Frequentia de parolas (ppm)\n\n")
 pages = [wds [:3*cols_fst]] + list (
   chunks (wds [3*cols_fst:],3*cols_rest))
 # print ("pages =", pages)
